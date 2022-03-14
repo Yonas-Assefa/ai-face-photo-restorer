@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<h1 class="title">View Application</h1>
+<h2 class="subtitle">{{ application.job.title }}</h2>
+<small>Date Added: {{ application.created_at }}</small>
+
+<p><strong>Content: </strong> {{ application.content }}</p>
+<p><strong>Experiance: </strong> {{ application.experiance }}</p>
+
+{% endblock content %}

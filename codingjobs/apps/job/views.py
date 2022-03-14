@@ -2,8 +2,8 @@ import imp
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Job
-from .forms import AddJobForm
+from .models import Job,Application
+from .forms import AddJobForm,ApplicationForm
 
 # Create your views here.
 
@@ -11,6 +11,27 @@ def job_detail(request,job_id):
     job=Job.objects.get(pk=job_id)
     context={'job':job}
     return render(request,'job/job_detail.html',context)
+
+@login_required
+def apply_for_job(request,job_id):
+    context={}
+    form=None
+    job=Job.objects.get(pk=job_id)
+     
+    if request.method=='POST':
+        form=ApplicationForm(request.POST)
+        if form.is_valid():
+            application=form.save(commit=False)
+            application.job=job
+            application.created_by=request.user
+            application.save()
+
+            return redirect('dashboard')
+        else:
+            form=ApplicationForm()
+    context={'form':form,'job':job}
+
+    return render(request,'job/apply_for_job.html',context)
 
 @login_required
 def add_job(request):

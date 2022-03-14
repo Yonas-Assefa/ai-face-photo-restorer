@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job
+from .models import Job,Application
 
 class AddJobForm(forms.ModelForm):
     class Meta:
@@ -8,4 +8,12 @@ class AddJobForm(forms.ModelForm):
             'title',
             'short_description',
             'long_description'
+        ]
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model=Application
+        fields=[
+            'content',
+            'experiance',
         ]

@@ -15,7 +15,15 @@
 {% endfor %}
 
 {% else %}
-<h2>the job seeker Dashboard</h2>
+<h2 class="subtitle">Applied Jobs</h2>
+{% for application in request.user.applications.all %}
+<div class="application">
+    <a href="{% url 'view_application' application.id %}">{{ application.job.title }}</a> 
+</div>
+{% empty %}
+<p>you havent applied for any job yet...</p>
+{% endfor %}
+
 {% endif %}
 
 {% endblock content %}

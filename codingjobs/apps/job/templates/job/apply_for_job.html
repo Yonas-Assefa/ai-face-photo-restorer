@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1 class="title">apply for job- {{ job.title }} </h1>
+<form action="." method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+    {% for error in form.errors %}
+    <div class="notification is-danger">
+        {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="field">
+        <label for="">Content</label>
+        <div class="control">
+            <textarea class="textarea" name="content" type="text" name="title" id="id_content"></textarea>
+        </div>
+    </div>
+
+    <div class="field">
+        <label for="">experiance</label>
+        <div class="control">
+            <textarea class="textarea" name="experiance" type="text" name="title" id="id_experiance"></textarea>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <button class="button is-success">Submit</button>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
