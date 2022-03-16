@@ -7,7 +7,13 @@ class AddJobForm(forms.ModelForm):
         fields=[
             'title',
             'short_description',
-            'long_description'
+            'long_description',
+            'company_name',
+            'company_address',
+            'company_zipcode',
+            'company_place',
+            'company_country',
+            'company_size'
         ]
 
 class ApplicationForm(forms.ModelForm):

@@ -18,6 +18,6 @@ def notifications(request):
         if notification.notification_type == Notificaion.MESSAGE:
             return redirect('view_application',application_id=notification.extra_id)
 
-        elif notification.notification_type==Notificaion.APPLICATION:
+        elif notification.notification_type == Notificaion.APPLICATION:
             return redirect('view_application',application_id=notification.extra_id)
     return render(request,'notification/notifications.html')

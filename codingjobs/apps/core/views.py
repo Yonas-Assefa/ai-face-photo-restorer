@@ -7,7 +7,7 @@ from apps.userprofile.models import Userprofile
 
 
 def frontPage(request):
-    jobs=Job.objects.all()[0:3]
+    jobs=Job.objects.order_by('-created_at')[0:3]
     context={'jobs':jobs}
     return render(request,'core/frontpage.html',context)
 
