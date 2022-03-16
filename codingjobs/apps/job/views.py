@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Job,Application
 from .forms import AddJobForm,ApplicationForm
-
+from apps.notification.utilities import create_notification
 # Create your views here.
 
 def job_detail(request,job_id):
@@ -25,7 +25,8 @@ def apply_for_job(request,job_id):
             application.job=job
             application.created_by=request.user
             application.save()
-
+            
+            create_notification(request,job.created_by,'application',extra_id=application.id)
             return redirect('dashboard')
         else:
             form=ApplicationForm()
