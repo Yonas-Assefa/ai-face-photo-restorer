@@ -1,5 +1,5 @@
 from pyexpat import model
-from tkinter import CASCADE
+from tkinter import ACTIVE, CASCADE
 from turtle import title
 from django.db import models
 from django.contrib.auth.models import User
@@ -18,6 +18,15 @@ class Job(models.Model):
         (SIZE_50_99,'50_99'),
         (SIZE_100,'100+')
     )
+    ACTIVE='active'
+    EMPLOYED='employed'
+    ARCHIVED='archaived'
+    
+    CHOICES_STATUS=(
+        (ACTIVE,'active'),
+        (EMPLOYED,'employed'),
+        (ARCHIVED,'archaived')
+    )
 
     title=models.CharField(max_length=250)
     short_description=models.TextField()
@@ -33,6 +42,8 @@ class Job(models.Model):
     created_by=models.ForeignKey(User,related_name='jobs',on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
     changed_at=models.DateTimeField(auto_now=True)
+    
+    status=models.CharField(max_length=20,choices=CHOICES_STATUS,default=ACTIVE)
 
     def __str__(self):
         return self.title

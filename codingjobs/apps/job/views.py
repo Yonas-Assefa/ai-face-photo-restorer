@@ -1,11 +1,14 @@
 import imp
 from multiprocessing import context
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Job,Application
 from .forms import AddJobForm,ApplicationForm
 from apps.notification.utilities import create_notification
 # Create your views here.
+
+def search(request):
+    return render(request,'job/search.html')
 
 def job_detail(request,job_id):
     job=Job.objects.get(pk=job_id)
@@ -49,3 +52,21 @@ def add_job(request):
         form=AddJobForm()
     context={'form':form}
     return render(request,'job/add_job.html',context)
+
+
+@login_required
+def edit_job(request,job_id):
+    job=get_object_or_404(Job,pk=job_id,created_by=request.user)
+    if request.method=="POST":
+        form=AddJobForm(request.POST,instance=job)
+
+        if form.is_valid():
+            job=form.save(commit=False)
+            job.status=request.POST.get('status')
+            job.save()
+            
+            return redirect('dashboard')
+    else:
+        form=AddJobForm(instance=job)
+    context={'form':form,'job':job}
+    return render(request,'job/edit_job.html',context)

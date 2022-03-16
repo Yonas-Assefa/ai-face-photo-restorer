@@ -4,6 +4,7 @@
 
     <h1 class="title">View Job--{{ job.title }}</h1>
     <p class="is-size-4">{{ job.short_description }}</p>
+    <a href="{% url 'edit_job' job.id %}" class="button is-success mb-4">edit job</a>
     <p>{{ job.long_description }}</p>
     <b>company name:</b>{{ job.company_name }} <br>
         {% if job.company_address %} <b>company address:</b>{{ job.company_address }} <br>{% endif %}
